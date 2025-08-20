@@ -1,0 +1,7 @@
+CompileFlags: # Tweak the parse settings, example directory given to show format
+  Add:
+    # - "-I=[folder]"         # old answer
+    - "-I/usr/local/include/geany"
+    - "-I/usr/local/include/geany/tagmanager/"
+    - "-I/usr/local/include/geany/scintilla/"
+    - "-I/usr/local/include/glib-2.0/"
