@@ -20,7 +20,7 @@ extra_flags = [
 # '-Wconversion'
   ]
 
-public_headers = include_directories('src')
+public_headers = include_directories('src','/usr/local/dislin')
 
 #host_sys = host_machine.system()
 #platform_is_windows = (host_sys == 'windows')
@@ -32,17 +32,39 @@ conf.set_quoted('MMM_VERSION', meson.project_version())
 config_h = configure_file(output : 'config.h', configuration : conf)
 
 geany_dep = dependency('geany')
+# dislin_dep = dependency('dislin')
 
 
-shared_module(
+dislin_dep = declare_dependency(
+    link_args : ['-L' + '/usr/local/dislin', '-l' + 'dislin'],
+    include_directories : include_directories('/usr/local/dislin'))
+
+m_dep = cc.find_library('m', required : false)
+
+shared_library(
   meson.project_name(),
   'src/matrixreader.c',
   'src/mmm.c',
   'src/print.c',
   'src/tinyexpr.c',
+  'src/converter.c',
   include_directories : public_headers,
-  dependencies: [geany_dep],
+  dependencies: [geany_dep, m_dep, dislin_dep],
   install: true,
   name_prefix: '',
   install_dir : join_paths(get_option('prefix'), get_option('libdir'), 'geany')
   )
+
+#library(
+#  meson.project_name(),
+#  'src/matrixreader.c',
+#  'src/mmm.c',
+#  'src/print.c',
+#  'src/tinyexpr.c',
+#  'src/converter.c',
+#  include_directories : public_headers,
+#  dependencies: [geany_dep],
+#  install: false,
+#  name_prefix: '',
+#  install_dir : join_paths(get_option('prefix'), get_option('libdir'), 'geany')
+#)

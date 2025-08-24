@@ -38,12 +38,13 @@
 #include "mmm.h"
 #include "print.h"
 #include "matrixreader.h"
+#include "converter.h"
 
 
 GeanyPlugin	*geany_plugin;
 GeanyData	*geany_data;
 
-// PLUGIN_VERSION_CHECK(224)
+PLUGIN_VERSION_CHECK(224)
 
 PLUGIN_SET_INFO("TVC tools for Geany", "Adds some helpful tools for doing TVCs with Geany.", "0.1", "Michael")
 
@@ -288,6 +289,9 @@ void plugin_init(G_GNUC_UNUSED GeanyData *data)
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(geany->main_widgets->editor_menu), s_context_fdec_item);
 	g_signal_connect((gpointer) s_context_fdec_item, "activate", G_CALLBACK(printer), NULL);
 	
+	initthegui();
+	printf("hello");
+	fflush(stdout);
 	/*	
 	if(contextmenu == 1){
 
