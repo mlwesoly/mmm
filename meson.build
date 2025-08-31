@@ -39,7 +39,7 @@ dislin_dep = declare_dependency(
     link_args : ['-L' + '/usr/local/dislin', '-l' + 'dislin'],
     include_directories : include_directories('/usr/local/dislin'))
 
-m_dep = cc.find_library('m', required : false)
+m_dep = cc.find_library('m', required : true)
 
 shared_library(
   meson.project_name(),
